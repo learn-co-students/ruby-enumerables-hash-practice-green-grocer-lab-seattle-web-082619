@@ -1,3 +1,4 @@
+
 describe "Grocer" do
   let(:items) do
     [
