@@ -1,13 +1,9 @@
 def consolidate_cart(cart)
   cart_hash = {}
   cart.each do |item|
-    item.each do |f, i|
-      if cart_hash[f] 
-        cart_hash[f][:count] += 1
-      else
-        cart_hash[f] = i
-        cart_hash[f][:count] = 1
-      end
+    item.each do |food, info|
+      info[:count] = 1
+      cart_hash.key?(food) ? info[:count] += 1 : cart_hash[food] = info
     end
   end
   cart_hash
@@ -39,6 +35,7 @@ def apply_clearance(cart)
 end
 
 def checkout(cart, coupons)
+  puts cart
   cart = consolidate_cart(cart)
   cart = apply_coupons(cart, coupons)
   cart = apply_clearance(cart)
@@ -46,5 +43,5 @@ def checkout(cart, coupons)
   cart.each do |f, i|
     total += i[:price] * i[:count]
   end
-  total > 100 ? total *= 0.90 : total 
+  total > 100 ? total *= 0.9 : total 
 end
